@@ -1,3 +1,8 @@
+const numbers = document.querySelectorAll('#num');
+const switches = document.querySelectorAll('#switches');
+const output = document.getElementById('output');
+
+
 const add = function(nums){
     const sum = nums.reduce((total, current) => {
         return total + current;
@@ -44,7 +49,44 @@ const operate = function(operator, ...nums){
             let divided = divide(nums);
             return divided;
     }
-
 }
 
-console.log(operate('*',5,2,3))
+const getVal = function(){
+    let numberVal = Number(output.value);
+    return numberVal;
+}
+
+const getOp = function(op){
+    let operatorVal = op;
+    return operatorVal;
+}
+
+const arrayFunc = function(){
+    let value;
+    numbers.forEach(number => {
+        number.addEventListener('click', () =>{
+            value = number.innerHTML;
+            output.value += `${value}`;
+            getVal();
+        });
+    });  
+}
+arrayFunc();
+
+const operators = function(){
+    let value;
+    switches.forEach(operator => {
+        operator.addEventListener('click', () =>{
+            value = operator.innerHTML;
+            output.value += `${value}`;
+            getOp(value);
+        });
+    });
+}
+operators();
+
+const evaluate = function(){
+    console.log(getVal());
+    console.log(getOp());
+}
+evaluate();
