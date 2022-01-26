@@ -5,41 +5,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/styles.css">
-    <title>Document</title>
+    <title>Calculator App</title>
 </head>
 <body>
-    <div class="display">
-        <form>
-            <input type="text" id="output" class="output">
-        </form>
-    </div>
-   
-        
-    </div>
-    <div id="numbers">
-        <button id="num">0</button>
-        <button id="num">1</button>
-        <button id="num">2</button>
-        <button id="num">3</button>
-        <button id="num">4</button>
-        <button id="num">5</button>
-        <button id="num">6</button>
-        <button id="num">7</button>
-        <button id="num">8</button>
-        <button id="num">9</button>
-    </div>
+    <div class="calculator-grid">
+        <div class="display">
+            <div data-current class="current-output"></div> 
+            <div data-previous class="previous-output"></div>  
+        </div>
 
-    <div id="operater">
-        <button id="switches">+</button>
-        <button id="switches">-</button>
-        <button id="switches">*</button>
-        <button id="switches">/</button>
-        <button id="switches">=</button>
+        <button data-number>1</button>
+        <button data-number>2</button>
+        <button data-number>3</button>
+        <button data-operation>+</button>
+        <button data-number>4</button>
+        <button data-number>5</button>
+        <button data-number>6</button>
+        <button data-operation>-</button>
+        <button data-number>7</button>
+        <button data-number>8</button>
+        <button data-number>9</button>
+        <button data-operation>*</button>
+        <button data-number>0</button>  
+        <button data-operation>/</button>
+        <button data-equals>=</button>
+        <button data-clear>AC</button>
     </div>
-
-    
-    <button>AC</button>
-
     <script src="/js/app.js"></script>
 </body>
 </html>

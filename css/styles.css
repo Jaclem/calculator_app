@@ -11,3 +11,18 @@ body {
     width: 400px;
     background-color: lightgray;
 }
+
+.previous-output {
+    height: 30px;
+    width: 100%;
+    background-color: darkslategray;
+    color: white;
+}
+
+.current-output {
+    height: 30px;
+    width: 100%;
+    background-color: darkslategray;
+    color: white;
+    margin-bottom: 3px;
+}
