@@ -2,7 +2,7 @@ const numbers = document.querySelectorAll('[data-number]');
 const operators = document.querySelectorAll('[data-operation]');
 const clearAll = document.querySelector('[data-clear]');
 const equalsBtn = document.querySelector('[data-equals]');
-let previousValue = document.querySelector('[data-previous]');
+const decimal = document.querySelector('[data-decimal]');
 let currentValue = document.querySelector('[data-current]');
 let firstNum = '';
 let secondNum = '';
@@ -20,7 +20,11 @@ numbers.forEach(number => {
             firstNum += number.textContent;
             getFirstVal(firstNum); 
         }
-        else if(operand != ''){
+        else if(operand == '-'){
+            firstNum = currentValue.innerHTML;
+            getFirstVal(firstNum);
+        }
+        else if(operand != '' && operand != '-'){
             secondNum += number.textContent;
             getSecondVal(secondNum);
         }  
@@ -33,25 +37,20 @@ operators.forEach(operator => {
         operand = operator.textContent;
         currentValue.innerHTML += operand;
 
-        // if(secondNum != ''){
-        //     calculate();
-        // }
+        if(secondNum != ''){
+            calculate();
+            currentValue.innerHTML += operand;
+        }
     });
 });
 
-clearAll.addEventListener('click', ()=> {
-    previousValue.innerHTML = '';
-    currentValue.innerHTML = '';
-});
-
 equalsBtn.addEventListener('click', ()=> {
-    previousValue.innerHTML = '';
     calculate();
 });
 
+// helper functions
 const getFirstVal = function(...args){
     firstNum = parseInt(args);
-    console.log(firstNum);
 }
 
 const getSecondVal = function(...args){
@@ -80,7 +79,7 @@ const calculate = function(){
         case '-':
             sum = total.reduce((previous, current) => {
                 return previous - current;
-            });
+            }); 
 
             firstNum = sum;
             secondNum = '';
@@ -114,4 +113,9 @@ const calculate = function(){
             break;
     }
 }
+
+clearAll.addEventListener('click', ()=> {
+    currentValue.innerHTML = '';
+    firstNum = null;
+});
 
