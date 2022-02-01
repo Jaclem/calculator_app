@@ -8,14 +8,16 @@ let firstNum = '';
 let secondNum = '';
 let operand = '';
 let content = '';
+let total = [];
+let sum;
 
 numbers.forEach(number => {
 
     number.addEventListener('click', ()=> {
         currentValue.innerHTML += number.textContent;
-        firstNum += number.textContent;
         
         if(operand == ''){
+            firstNum += number.textContent;
             getFirstVal(firstNum); 
         }
         else if(operand != ''){
@@ -28,8 +30,12 @@ numbers.forEach(number => {
 
 operators.forEach(operator => {
     operator.addEventListener('click', ()=> {
-        currentValue.innerHTML += operator.innerHTML;
-        operand = operator.innerHTML;
+        operand = operator.textContent;
+        currentValue.innerHTML += operand;
+
+        // if(secondNum != ''){
+        //     calculate();
+        // }
     });
 });
 
@@ -39,29 +45,73 @@ clearAll.addEventListener('click', ()=> {
 });
 
 equalsBtn.addEventListener('click', ()=> {
-    firstNum = currentValue.innerHTML;
     previousValue.innerHTML = '';
+    calculate();
 });
 
 const getFirstVal = function(...args){
-    console.log(args);
+    firstNum = parseInt(args);
+    console.log(firstNum);
 }
 
 const getSecondVal = function(...args){
-    console.log(args);
+    secondNum = parseInt(args);
 }
 
 
-// const calculate = function(){
+
+const calculate = function(){
+    total = [firstNum, secondNum];
+    console.log(total);
     
-//     switch(){
-//         case '+':
-//             return a + b;
-//         case '-':
-//             return a - b;
-//         case '*':
-//             return a * b;
-//         case '/':
-//             return a / b;
-//     }
-// }
+    switch(operand){
+        case '+':
+            sum = total.reduce((previous, current) => {
+                return previous + current;
+            }, 0);
+
+            firstNum = sum;
+            secondNum = '';
+            total = [];
+            currentValue.innerHTML = sum;
+
+            break;
+
+        case '-':
+            sum = total.reduce((previous, current) => {
+                return previous - current;
+            });
+
+            firstNum = sum;
+            secondNum = '';
+            total = [];
+            currentValue.innerHTML = sum;
+
+            break;
+
+        case '*':
+            sum = total.reduce((previous, current) => {
+                return previous * current;
+            }, 1);
+
+            firstNum = sum;
+            secondNum = '';
+            total = [];
+            currentValue.innerHTML = sum;
+
+            break;
+
+        case '/':
+            sum = total.reduce((previous, current) => {
+                return previous / current;
+            });
+
+            firstNum = sum;
+            secondNum = '';
+            total = [];
+            currentValue.innerHTML = sum;
+
+            break;
+    }
+}
+
