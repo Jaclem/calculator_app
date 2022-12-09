@@ -1,121 +1,46 @@
 const numbers = document.querySelectorAll('[data-number]');
-const operators = document.querySelectorAll('[data-operation]');
-const clearAll = document.querySelector('[data-clear]');
-const equalsBtn = document.querySelector('[data-equals]');
-const decimal = document.querySelector('[data-decimal]');
-let currentValue = document.querySelector('[data-current]');
-let firstNum = '';
-let secondNum = '';
-let operand = '';
-let content = '';
-let total = [];
-let sum;
+const operators = document.querySelectorAll('[data-operator]');
+console.log(operators);
 
-numbers.forEach(number => {
+let int = [];
 
-    number.addEventListener('click', ()=> {
-        currentValue.innerHTML += number.textContent;
-        
-        if(operand == ''){
-            firstNum += number.textContent;
-            getFirstVal(firstNum); 
-        }
-        else if(operand == '-'){
-            firstNum = currentValue.innerHTML;
-            getFirstVal(firstNum);
-        }
-        else if(operand != '' && operand != '-'){
-            secondNum += number.textContent;
-            getSecondVal(secondNum);
-        }  
-    });
-});
+// Helper Functions
 
-
-operators.forEach(operator => {
-    operator.addEventListener('click', ()=> {
-        operand = operator.textContent;
-        currentValue.innerHTML += operand;
-
-        if(secondNum != ''){
-            calculate();
-            currentValue.innerHTML += operand;
-        }
-    });
-});
-
-equalsBtn.addEventListener('click', ()=> {
-    calculate();
-});
-
-// helper functions
-const getFirstVal = function(...args){
-    firstNum = parseInt(args);
-}
-
-const getSecondVal = function(...args){
-    secondNum = parseInt(args);
-}
-
-
-
-const calculate = function(){
-    total = [firstNum, secondNum];
-    console.log(total);
+// Joins the array strings together and then converts to integer
+const joinInt = function(arr) {
+    let intJoined = arr.join('');
+    let intParsed = parseInt(intJoined, 10);
     
-    switch(operand){
-        case '+':
-            sum = total.reduce((previous, current) => {
-                return previous + current;
-            }, 0);
+    addToInputScreen(intParsed);
+}
 
-            firstNum = sum;
-            secondNum = '';
-            total = [];
-            currentValue.innerHTML = sum;
+// Adds the numbers in the array when clicked to the calculator screen
+const addToInputScreen = function(inputNum) {
+    document.getElementById('input').value = `${inputNum}`;
 
-            break;
+}
 
-        case '-':
-            sum = total.reduce((previous, current) => {
-                return previous - current;
-            }); 
+// Adds each value clicked to an array // checks if array has numbers in it, if so it sends value to joinInt function
+const addToInt = function(value) {
+    int.push(value);
 
-            firstNum = sum;
-            secondNum = '';
-            total = [];
-            currentValue.innerHTML = sum;
-
-            break;
-
-        case '*':
-            sum = total.reduce((previous, current) => {
-                return previous * current;
-            }, 1);
-
-            firstNum = sum;
-            secondNum = '';
-            total = [];
-            currentValue.innerHTML = sum;
-
-            break;
-
-        case '/':
-            sum = total.reduce((previous, current) => {
-                return previous / current;
-            });
-
-            firstNum = sum;
-            secondNum = '';
-            total = [];
-            currentValue.innerHTML = sum;
-
-            break;
+    if(int.length > 0){
+        joinInt(int);
     }
 }
 
-clearAll.addEventListener('click', ()=> {
-    currentValue.innerHTML = '';
-    firstNum = null;
+// Event Listeners
+
+numbers.forEach(button => {
+    button.addEventListener('click', (e)=> {
+        let btnClicked = e.target.value;
+        addToInt(btnClicked);
+    });
 });
+
+operators.forEach(operator => {
+    operator.addEventListener('click', (e) => {
+        opType = e.target.value;
+    })
+})
 
